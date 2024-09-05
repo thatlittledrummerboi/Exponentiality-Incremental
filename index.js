@@ -1,150 +1,82 @@
-//set up variables
-let upgradeBaseCost = [10,50,100,250];
-let upgradeCostMult = [0.5,0.35,0.75,2];
-let upgradeLevel = [0,0,0,0];
-let upgradeStep = [1,0.1,0.05,0.01];
+import Decimal from "./modules/breakinfinity.js"
 
-let moolah = 1;
-let mpt = 0;
-let tickspeed = 1;
-let running = true;
-let framerate = 24;
-
-
-function calculateMPT() {
-    //calculate Money per Tick
-    let addition = 1 + upgradeLevel[0] * upgradeStep[0];
-    let multiplication = 1 + upgradeLevel[1] * upgradeStep[1];
-    let exponentiation = 1 + upgradeLevel[2] * upgradeStep[2];
-    let tetration = 1 + upgradeLevel[3] * upgradeStep[3];
-
-    return(Math.pow(Math.pow((addition * multiplication), exponentiation), tetration));
-}
-
-
-function updateValues() {
-    let addition = 1 + upgradeLevel[0] * upgradeStep[0];
-    let multiplication = 1 + upgradeLevel[1] * upgradeStep[1];
-    let exponentiation = 1 + upgradeLevel[2] * upgradeStep[2];
-    let tetration = 1 + upgradeLevel[3] * upgradeStep[3];
-
-    //calculate values
-    mpt = calculateMPT();
-    moolah += mpt/framerate;
-    formula = "{[(" + (notation(addition)) + ") * " + (notation(multiplication)) + "] ^ " + (notation(exponentiation)) + "} ^ " + (notation(tetration));
+var player = {
+    money: new Decimal(10),
+    tickspeed: new Decimal(1),
+    formula: "nuh uh",
+    mpt: new Decimal(0),
+    upgrades: {
+        upgradeLevel: [
+            0, 0, 0, 0, // OPERATIONS
+            0,          // TICKSPEED
+        ],
+        upgradeBaseCost: [
+            10, 50, 100, 250, // OPERATIONS
+            1000,          // TICKSPEED
+        ],
+        upgradeCostMult: [
+            0.15, 0, 0, 0, // OPERATIONS
+            10,          // TICKSPEED
+        ],
+        upgradeStep: [
+            1, 0, 0, 0,  // OPERATIONS
+            0.125,       // TICKSPEED
+        ],
+    },
+    settings: {
+        framerate: 24,
+        framerate_default: 24,
+    }
 }
 
 function drawValues() {
-    //draw values onto screen
-    document.getElementById('moolahDisplayVar').innerHTML = notation(moolah);
-    document.getElementById('mpsDisplayVar').innerHTML = notation(mpt * tickspeed);
-    document.getElementById('tickspeedDisplayVar').innerHTML = notation(tickspeed);
-    document.getElementById('formulaDisplayVar').innerHTML = formula;
+    document.getElementById('moneyDisplayVar').innerHTML = player.money;
+    document.getElementById('mpsDisplayVar').innerHTML = player.mpt * (player.tickspeed);
+    document.getElementById('tickspeedDisplayVar').innerHTML = player.tickspeed;
+    document.getElementById('formulaDisplayVar').innerHTML = player.formula;
 
-    //draw button values onto screen
-
-    document.getElementById('upgradeStep1').innerHTML = notation(upgradeStep[0]);
-    document.getElementById('upgradeCost1').innerHTML = notation(calculateCost(0));
-    document.getElementById('upgradePower1').innerHTML = notation(1 + upgradeLevel[0] * upgradeStep[0]);
-    
-    document.getElementById('upgradeStep2').innerHTML = notation(upgradeStep[1]);
-    document.getElementById('upgradeCost2').innerHTML = notation(calculateCost(1));
-    document.getElementById('upgradePower2').innerHTML = notation(1 + upgradeLevel[1] * upgradeStep[1]);
-    
-    document.getElementById('upgradeStep3').innerHTML = notation(upgradeStep[2]);
-    document.getElementById('upgradeCost3').innerHTML = notation(calculateCost(2));
-    document.getElementById('upgradePower3').innerHTML = notation(1 + upgradeLevel[2] * upgradeStep[2]);
-    
-    document.getElementById('upgradeStep4').innerHTML = notation(upgradeStep[3]);
-    document.getElementById('upgradeCost4').innerHTML = notation(calculateCost(3));
-    document.getElementById('upgradePower4').innerHTML = notation(1 + upgradeLevel[3] * upgradeStep[3]);
+    let i = 0
+    while(i < player.upgrades.upgradeLevel.length) {
+        document.getElementById('upgradeStep' + (i+1)).innerHTML = player.upgrades.upgradeStep[i];
+        document.getElementById('upgradeCost' + (i+1)).innerHTML = calculateCost(i);
+        document.getElementById('upgradePower' + (i+1)).innerHTML = player.upgrades.upgradeLevel[i] * player.upgrades.upgradeStep[i];
+        i++;
+    }
 }
 
-function notation(val, type) {
-    let exp = Math.floor(Math.log10(val));
-    let valstring = val.toString()
-    let suffixes = ["", "K", "M", "B", "T", "Qa", "Qt", "Sx", "Sp", "Oc", "No", "Dc" ]
-    if (type == null) {type = 0;}
-    
-    // NOTATION TYPES: 0 = Mixed Notation, 1 = Scientific Notation, 2 = Standard Notation
+function calculateValues() {
+    let addition = player.upgrades.upgradeLevel[0] * player.upgrades.upgradeStep[0];
+    let multiplication = 1 + player.upgrades.upgradeLevel[1] * player.upgrades.upgradeStep[1];
+    let exponentiation = 1 + player.upgrades.upgradeLevel[2] * player.upgrades.upgradeStep[2];
+    let tetration = 1 + player.upgrades.upgradeLevel[3] * player.upgrades.upgradeStep[3];
+    player.tickspeed = player.upgrades.upgradeLevel[4] * player.upgrades.upgradeStep[4];
 
-    if (exp < 3) {
-        return(val.toFixed(2));
-    } else {
-        if (type == 0) {
-            if (val < 1_000_000_000_000_000_000_000_000_000_000_000) { //1 decillion
-                switch (exp % 3) {
-                    case 0:
-                        return(valstring.charAt(0) + "." + valstring.charAt(1) + valstring.charAt(2) + valstring.charAt(3) + suffixes[Math.floor(exp / 3)])
-                    case 1:
-                        return(valstring.charAt(0) + valstring.charAt(1) + "." + valstring.charAt(2) + valstring.charAt(3) + valstring.charAt(4) + suffixes[Math.floor(exp / 3)])
-                    case 2:
-                        return(valstring.charAt(0) + valstring.charAt(1) + valstring.charAt(2) + "." + valstring.charAt(3) + valstring.charAt(4) + valstring.charAt(5) + suffixes[Math.floor(exp / 3)])
-                }
-            } else {
-                return(valstring.charAt(0) + "." + valstring.charAt(1) + valstring.charAt(2) + valstring.charAt(3) + "e" + exp)
-            }
-        } else if (type == 1) {
-            return(valstring.charAt(0) + "." + valstring.charAt(1) + valstring.charAt(2) + valstring.charAt(3) + "e" + exp)
-        } else if (type == 2) {
-            
-            switch (exp % 3) {
-                case 0:
-                    return(valstring.charAt(0) + "." + valstring.charAt(1) + valstring.charAt(2) + valstring.charAt(3) + suffixes[Math.floor(exp / 3)])
-                case 1:
-                    return(valstring.charAt(0) + valstring.charAt(1) + "." + valstring.charAt(2) + valstring.charAt(3) + valstring.charAt(4) + suffixes[Math.floor(exp / 3)])
-                case 2:
-                    return(valstring.charAt(0) + valstring.charAt(1) + valstring.charAt(2) + "." + valstring.charAt(3) + valstring.charAt(4) + valstring.charAt(5) + suffixes[Math.floor(exp / 3)])
-            }
-        }
-    }
-
+    player.mpt = Math.pow(Math.pow((addition * multiplication), exponentiation), tetration);
+    player.money.plus((player.mpt * player.tickspeed)/player.settings.framerate);
 }
 
 function frame() {
-    updateValues();
+    calculateValues();
     drawValues();
+
+    document.getElementById ("upgradeStep1").addEventListener ("click", attemptPurchase(0), false);
+    document.getElementById ("upgradeStep2").addEventListener ("click", attemptPurchase(1), false);
+    document.getElementById ("upgradeStep3").addEventListener ("click", attemptPurchase(2), false);
+    document.getElementById ("upgradeStep4").addEventListener ("click", attemptPurchase(3), false);
+    document.getElementById ("upgradeStep5").addEventListener ("click", attemptPurchase(4), false);
 }
+
+function calculateCost(id) { return (player.upgrades.upgradeBaseCost[id] * Math.pow((1 + player.upgrades.upgradeCostMult[id]), player.upgrades.upgradeLevel[id])) }
 
 function attemptPurchase(id) {
-    cost = calculateCost(id);
+    let cost = calculateCost(id);
 
-    if (moolah >= cost) {
-        moolah -= cost;
-        upgradeLevel[id] += 1;
-        drawValues();
+    if (player.money >= cost) {
+        player.money.min(cost);
+        player.upgrades.upgradeLevel[id] += 1;
     }
 }
-
-function save() {
-    let save = [];
-    
-    let i = 0;
-    while(i < upgradeLevel.length) {
-        save.push(upgradeLevel[i]);
-        i++;
-    }
-    save.push(moolah);
-
-    console.log(save);
-}
-
-function load() {
-    let load = prompt('insert save here');
-
-    let i = 0;
-    while (i < upgradeLevel.length) {
-        upgradeLevel[i] = load[i];
-        i++
-    }
-    moolah = load[i]
-}
-
-function calculateCost(id) { return(upgradeBaseCost[id] * Math.pow((1 + upgradeCostMult[id]),upgradeLevel[id])); }
-
-function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms));}
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    setInterval(frame, (1000/framerate))
+    setInterval(frame, (1000/player.settings.framerate))
 });
-

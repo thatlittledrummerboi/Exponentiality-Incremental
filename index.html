@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/index.css">
-    <script src="/index.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/break_infinity.js@2"></script>
+    <script type="module" src="/index.js"></script>
     <title>Exponentiality</title>
 </head>
 <body>
@@ -22,16 +21,23 @@
         </nav>
     </div>
     <div id="displaysContainer">
-        <h1 id="moolahDisplay">You have <span id="moolahDisplayVar">[0]</span> Moolah</h1>
-        <p id="mpsDisplay">Moolah/s: <span id="mpsDisplayVar">[0]</span></p>
+        <h1 id="moneyDisplay">You have <span id="moneyDisplayVar">[0]</span> money</h1>
+        <p id="mpsDisplay">money/s: <span id="mpsDisplayVar">[0]</span></p>
         <p id="tickspeedDisplay">Tickspeed: <span id="tickspeedDisplayVar">[0]</span> ticks/s</p>
         <p id="formulaDisplay">Formula: <span id="formulaDisplayVar">[0]</span> per Tick</p>
     </div>
+    <br><br>
     <div class="upgradeButtonsContainer">
-        <button id="1" class="upgradeButton" onclick="attemptPurchase(0)">increase addition by <span id="upgradeStep1">[0]</span><br>Cost: <span id="upgradeCost1">[0]</span> Moolah<br>Currently: <span id="upgradePower1">[0]</span></button>
-        <button id="2" class="upgradeButton" onclick="attemptPurchase(1)">increase multiplication by <span id="upgradeStep2">[0]</span><br>Cost: <span id="upgradeCost2">[0]</span> Moolah<br>Currently: <span id="upgradePower2">[0]</span></button>
-        <button id="3" class="upgradeButton" onclick="attemptPurchase(2)">increase exponentiation by <span id="upgradeStep3">[0]</span><br>Cost: <span id="upgradeCost3">[0]</span> Moolah<br>Currently: <span id="upgradePower3">[0]</span></button>
-        <button id="4" class="upgradeButton" onclick="attemptPurchase(3)">increase tetration by <span id="upgradeStep4">[0]</span><br>Cost: <span id="upgradeCost4">[0]</span> Moolah<br>Currently: <span id="upgradePower4">[0]</span></button>
+        <div class="operationUpgradeButtonsContainer">
+            <button id="1" class="upgradeButton">increase addition by <span id="upgradeStep1">[0]</span><br>Cost: <span id="upgradeCost1">[0]</span> money<br>Currently: <span id="upgradePower1">[0]</span></button>
+            <button id="2" class="upgradeButton" onclick="attemptPurchase(1)">increase multiplication by <span id="upgradeStep2">[0]</span><br>Cost: <span id="upgradeCost2">[0]</span> money<br>Currently: <span id="upgradePower2">[0]</span></button>
+            <button id="3" class="upgradeButton" onclick="attemptPurchase(2)">increase exponentiation by <span id="upgradeStep3">[0]</span><br>Cost: <span id="upgradeCost3">[0]</span> money<br>Currently: <span id="upgradePower3">[0]</span></button>
+            <button id="4" class="upgradeButton" onclick="attemptPurchase(3)">increase tetration by <span id="upgradeStep4">[0]</span><br>Cost: <span id="upgradeCost4">[0]</span> money<br>Currently: <span id="upgradePower4">[0]</span></button>
+        </div>
+        <br><br>
+        <div class="miscUpgradeButtonsContainer">
+            <button id="5" class="upgradeButton" onclick="attemptPurchase(4)">Increase tickspeed by <span id="upgradeStep5">[0]</span><br>Cost: <span id="upgradeCost5">[0]</span> money<br>Currently: <span id="upgradePower5">[0]</span></button>
+        </div>
     </div>
 </body>
 </html>

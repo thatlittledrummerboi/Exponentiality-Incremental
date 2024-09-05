@@ -10,7 +10,7 @@ body {
     text-align: center;
 }
 
-.upgradeButtonsContainer {
+.operationUpgradeButtonsContainer {
     text-align: center;
     display: flex;
     justify-content: space-around;
@@ -23,6 +23,14 @@ body {
     height: 65px;
     margin: 5px;
 }
+
+.upgradeButtonsContainer {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 
 nav {
     display: flex;
