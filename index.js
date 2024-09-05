@@ -1,5 +1,9 @@
 import Decimal from "./modules/breakinfinity.js"
 
+var game = {
+    checked_for_save: false,
+}
+
 var player = {
     money: new Decimal(10),
     tickspeed: new Decimal(1),
@@ -7,7 +11,7 @@ var player = {
     mpt: new Decimal(0),
     upgrades: {
         upgradeLevel: [
-            0, 0, 0, 0, // OPERATIONS
+            1, 0, 0, 0, // OPERATIONS
             0,          // TICKSPEED
         ],
         upgradeBaseCost: [
@@ -15,7 +19,7 @@ var player = {
             1000,          // TICKSPEED
         ],
         upgradeCostMult: [
-            0.15, 0, 0, 0, // OPERATIONS
+            0.3, 0.5, 0.75, 1, // OPERATIONS
             10,          // TICKSPEED
         ],
         upgradeStep: [
@@ -45,25 +49,25 @@ function drawValues() {
 }
 
 function calculateValues() {
-    let addition = player.upgrades.upgradeLevel[0] * player.upgrades.upgradeStep[0];
-    let multiplication = 1 + player.upgrades.upgradeLevel[1] * player.upgrades.upgradeStep[1];
-    let exponentiation = 1 + player.upgrades.upgradeLevel[2] * player.upgrades.upgradeStep[2];
-    let tetration = 1 + player.upgrades.upgradeLevel[3] * player.upgrades.upgradeStep[3];
+    let addition = new Decimal( player.upgrades.upgradeLevel[0] * player.upgrades.upgradeStep[0]);
+    let multiplication = new Decimal( 1 + player.upgrades.upgradeLevel[1] * player.upgrades.upgradeStep[1]);
+    let exponentiation = new Decimal( 1 + player.upgrades.upgradeLevel[2] * player.upgrades.upgradeStep[2]);
+    let tetration = new Decimal( 1 + player.upgrades.upgradeLevel[3] * player.upgrades.upgradeStep[3]);
     player.tickspeed = player.upgrades.upgradeLevel[4] * player.upgrades.upgradeStep[4];
 
-    player.mpt = Math.pow(Math.pow((addition * multiplication), exponentiation), tetration);
-    player.money.plus((player.mpt * player.tickspeed)/player.settings.framerate);
+    player.mpt = addition.mul(multiplication.pow(exponentiation.pow(tetration)));
+    player.money = player.money.plus(player.mpt.mul(player.tickspeed).div(player.settings.framerate));
 }
 
 function frame() {
     calculateValues();
     drawValues();
 
-    document.getElementById ("upgradeStep1").addEventListener ("click", attemptPurchase(0), false);
-    document.getElementById ("upgradeStep2").addEventListener ("click", attemptPurchase(1), false);
-    document.getElementById ("upgradeStep3").addEventListener ("click", attemptPurchase(2), false);
-    document.getElementById ("upgradeStep4").addEventListener ("click", attemptPurchase(3), false);
-    document.getElementById ("upgradeStep5").addEventListener ("click", attemptPurchase(4), false);
+    document.getElementById('upgradeButton1').onclick = attemptPurchase(0);
+    document.getElementById('upgradeButton2').onclick = attemptPurchase(1);
+    document.getElementById('upgradeButton3').onclick = attemptPurchase(2);
+    document.getElementById('upgradeButton4').onclick = attemptPurchase(3);
+    document.getElementById('upgradeButton5').onclick = attemptPurchase(4);
 }
 
 function calculateCost(id) { return (player.upgrades.upgradeBaseCost[id] * Math.pow((1 + player.upgrades.upgradeCostMult[id]), player.upgrades.upgradeLevel[id])) }

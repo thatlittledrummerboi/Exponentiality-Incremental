@@ -23,7 +23,7 @@ function getCookie(cname) {
 function checkIfCookieExists(cname) {
     var c = getCookie(cname);
     if(c != null) return(true);
-    return(false)
+    return(false);
 }
 
 export {getCookie, setCookie, checkIfCookieExists};
