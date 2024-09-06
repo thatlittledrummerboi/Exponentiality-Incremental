@@ -2,4 +2,4 @@
 * Initial Release
 
 ## Version 0.2-BETA (draft):
-* Introduced BreakInfinity 
+* Introduced BreakInfinity

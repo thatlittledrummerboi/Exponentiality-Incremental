@@ -54,4 +54,4 @@ function StandardNotation(valstring, exp) {
 
 function SciNotation(valstring, exp) { return(valstring[0] + "." + valstring[1] + valstring[2] + valstring[3] + "e" + exp); }
 
-export {notation, biNotation};
+export {notation, biNotation}; 

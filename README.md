@@ -1,2 +1,2 @@
 # Exponentiality
- Repo for Game "Exponentiality"
+ Repo for Game "Exponentiality" 

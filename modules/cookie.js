@@ -26,4 +26,4 @@ function checkIfCookieExists(cname) {
     return(false);
 }
 
-export {getCookie, setCookie, checkIfCookieExists};
+export {getCookie, setCookie, checkIfCookieExists}; 

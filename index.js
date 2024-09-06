@@ -82,7 +82,7 @@ function attemptPurchase(id) {
     if (player.money >= cost) {
         player.money = player.money.min((cost));
         player.upgrades.upgradeLevel[id] += 1;
-    }
+    } 
 }
 
 
