@@ -1,4 +1,5 @@
-import Decimal from "./modules/breakinfinity.js"
+import Decimal from "./modules/breakinfinity.js";
+import * as notationengine from "./modules/notationengine.js";
 
 var game = {
     checked_for_save: false,
@@ -34,7 +35,7 @@ var player = {
 }
 
 function drawValues() {
-    document.getElementById('moneyDisplayVar').innerHTML = player.money;
+    document.getElementById('moneyDisplayVar').innerHTML = notationengine.biNotation(player.money, player.money.log10());
     document.getElementById('mpsDisplayVar').innerHTML = player.mpt * (player.tickspeed);
     document.getElementById('tickspeedDisplayVar').innerHTML = player.tickspeed;
     document.getElementById('formulaDisplayVar').innerHTML = player.formula;
@@ -84,27 +85,6 @@ function attemptPurchase(id) {
     }
 }
 
-function notation(val, notation, decpoint) {
-    let exp;
-    if (notation = null) { notation = 0 }
-    
-    if (notation = 0) {
-        if (val < 1_000_000_000_000_000_000_000_000_000_000_000) { //1 decillion
-            return(StandardNotation(val));
-        }
-        return(SciNotation(val));
-    } else if (notation = 1) {
-        return(StandardNotation(val));
-    } else if (notation = 2) {
-        return(SciNotation(val));
-    }
-}
-
-function StandardNotation(val) {
-    var suffixes = ["", "K", "M", "B", "T", "Qa", "Qt", "Sx", "Sp", "Oc", "No", "Dc"];
-    var valstring = val.toString();
-    
-}
 
 configOnClicks();
 
