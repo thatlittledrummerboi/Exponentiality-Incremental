@@ -84,6 +84,28 @@ function attemptPurchase(id) {
     }
 }
 
+function notation(val, notation, decpoint) {
+    let exp;
+    if (notation = null) { notation = 0 }
+    
+    if (notation = 0) {
+        if (val < 1_000_000_000_000_000_000_000_000_000_000_000) { //1 decillion
+            return(StandardNotation(val));
+        }
+        return(SciNotation(val));
+    } else if (notation = 1) {
+        return(StandardNotation(val));
+    } else if (notation = 2) {
+        return(SciNotation(val));
+    }
+}
+
+function StandardNotation(val) {
+    var suffixes = ["", "K", "M", "B", "T", "Qa", "Qt", "Sx", "Sp", "Oc", "No", "Dc"];
+    var valstring = val.toString();
+    
+}
+
 configOnClicks();
 
 document.addEventListener('DOMContentLoaded', (event) => {
