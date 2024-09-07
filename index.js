@@ -1,5 +1,5 @@
-import Decimal from "./modules/breakinfinity.js";
-import * as notationengine from "./modules/notationengine.js";
+import Decimal from "modules/breakinfinity.js";
+import * as notationengine from "modules/notationengine.js";
 
 var game = {
     checked_for_save: false,
