@@ -6,9 +6,9 @@ var game = {
 }
 
 var player = {
-    money: new Decimal(100),
+    money: new Decimal(50),
     tickspeed: new Decimal(1),
-    formula: "nuh uh",
+    formula: "",
     mpt: new Decimal(0),
     upgrades: {
         upgradeLevel: [
@@ -35,7 +35,8 @@ var player = {
 }
 
 function drawValues() {
-    document.getElementById('moneyDisplayVar').innerHTML = notationengine.biNotation(player.money, player.money.log10());
+    let x = new Decimal(player.money.log10())
+    document.getElementById('moneyDisplayVar').innerHTML = notationengine.biNotation(player.money, x.floor());
     document.getElementById('mpsDisplayVar').innerHTML = player.mpt * (player.tickspeed);
     document.getElementById('tickspeedDisplayVar').innerHTML = player.tickspeed;
     document.getElementById('formulaDisplayVar').innerHTML = player.formula;
@@ -58,11 +59,24 @@ function calculateValues() {
 
     player.mpt = addition.mul(multiplication.pow(exponentiation.pow(tetration)));
     player.money = player.money.plus(player.mpt.mul(player.tickspeed).div(player.settings.framerate));
+    player.formula = "((" + addition + " * " + multiplication + ") ^ " + exponentiation + ") ^ " + tetration;
 }
 
 function frame() {
     calculateValues();
     drawValues();
+}
+
+function calculateCost(id) { return (player.upgrades.upgradeBaseCost[id] * Math.pow((1 + player.upgrades.upgradeCostMult[id]), player.upgrades.upgradeLevel[id])) }
+
+function attemptPurchase(id) {
+    let cost = calculateCost(id);
+
+    if (player.money >= cost) {
+        player.money = player.money.min((cost));
+        player.upgrades.upgradeLevel[id] += 1;
+        drawValues();
+    } 
 }
 
 function configOnClicks() {
@@ -74,21 +88,8 @@ function configOnClicks() {
     document.getElementById('upgradeButton5').addEventListener("click", (event) => {attemptPurchase(4)}); //     TICKSPEED
 }
 
-function calculateCost(id) { return (player.upgrades.upgradeBaseCost[id] * Math.pow((1 + player.upgrades.upgradeCostMult[id]), player.upgrades.upgradeLevel[id])) }
-
-function attemptPurchase(id) {
-    let cost = calculateCost(id);
-
-    if (player.money >= cost) {
-        player.money = player.money.min((cost));
-        player.upgrades.upgradeLevel[id] += 1;
-    } 
-}
-
-
-configOnClicks();
-
 document.addEventListener('DOMContentLoaded', (event) => {
+    configOnClicks();
+
     setInterval(frame, (1000/player.settings.framerate));
-    
 });

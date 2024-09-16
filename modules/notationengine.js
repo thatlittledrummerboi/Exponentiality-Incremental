@@ -1,19 +1,21 @@
 function biNotation(val, exp, decpoint, notation) {
     if (notation = null) { notation = 0; }
+    if (decpoint = null) { decpoint = 2; }
+    let valstring = val.toString()
 
-    if (val < 1000) {
-        val.toFixed(decpoint);
+    if (val.lt(1000)) {
+        return(val.toFixed(decpoint));
     }
 
     if (notation = 0) {
         if (val.lt(1_000_000_000_000_000_000_000_000_000_000_000)) { //1 decillion
-            return(StandardNotation(val, exp));
+            return(StandardNotation(valstring, exp));
         }
-        return(SciNotation(val, exp));
+        return(SciNotation(valstring, exp));
     } else if (notation = 1) {
-        return(StandardNotation(val, exp));
+        return(StandardNotation(valstring, exp));
     } else if (notation = 2) {
-        return(SciNotation(val, exp));
+        return(SciNotation(valstring, exp));
     }
 }
 
