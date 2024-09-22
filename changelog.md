@@ -3,3 +3,5 @@
 
 ## Version 0.2-BETA (draft):
 * Introduced BreakInfinity
+* Introduced Notation
+* Added Sidebar With Menu Options

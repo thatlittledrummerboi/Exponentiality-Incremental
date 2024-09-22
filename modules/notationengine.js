@@ -1,6 +1,8 @@
-function biNotation(val, exp, decpoint, notation) {
+function biNotation(vala, expa, decpointa, notation) {
     if (notation = null) { notation = 0; }
-    if (decpoint = null) { decpoint = 2; }
+    let val = new Decimal(vala);
+    let exp = new Decimal(expa);
+    let decpoint = new Decimal(decpointa)
     let valstring = val.toString()
 
     if (val.lt(1000)) {
@@ -21,7 +23,7 @@ function biNotation(val, exp, decpoint, notation) {
 
 function notation(val, decpoint, notation) {
     let exp = Math.floor(Math.log10(val));
-    var valstring = val.toString();
+    let valstring = val.toString();
     if (notation = null) { notation = 0; }
     if (decpoint = null) { decpoint = 2; }
 
@@ -41,8 +43,15 @@ function notation(val, decpoint, notation) {
     }
 }
 
+function floorLog10(val) {
+    let base = new Decimal(val);
+    let baseLog10 = new Decimal(base.log10());
+    return(baseLog10.floor());
+}
+
+
 function StandardNotation(valstring, exp) {
-    var suffixes = ["", "K", "M", "B", "T", "Qa", "Qt", "Sx", "Sp", "Oc", "No", "Dc"];
+    let suffixes = ["", "K", "M", "B", "T", "Qa", "Qt", "Sx", "Sp", "Oc", "No", "Dc"];
 
     switch(exp % 3) {
         case 0:
@@ -56,4 +65,4 @@ function StandardNotation(valstring, exp) {
 
 function SciNotation(valstring, exp) { return(valstring[0] + "." + valstring[1] + valstring[2] + valstring[3] + "e" + exp); }
 
-export {notation, biNotation}; 
+export {notation, biNotation, floorLog10}; 

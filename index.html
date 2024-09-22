@@ -5,39 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/index.css">
+    <link rel="shortcut icon" href="/img/favicon/favicon.ico" type="image/x-icon">
     <script type="module" src="/index.js"></script>
     <title>Exponentiality</title>
 </head>
 <body>
-    <div class="navbar">
-        <nav>
-            <ul>
-                <li>
-                    <button id="save">save</button>
-                </li>
-                <li>
-                    <button id="load">load</button>
-                </li>
-            </ul>
-        </nav>
+    <div class="moneyDisplayNavbarContainer">
+        <p id="moneyDisplay"><span id="moneyDisplayVarCorner">[0]</span><br> money</h1>
     </div>
-    <div id="displaysContainer">
-        <h1 id="moneyDisplay">You have <span id="moneyDisplayVar">[0]</span> money</h1>
-        <p id="mpsDisplay">money/s: <span id="mpsDisplayVar">[0]</span></p>
-        <p id="tickspeedDisplay">Tickspeed: <span id="tickspeedDisplayVar">[0]</span> ticks/s</p>
-        <p id="formulaDisplay">Formula: <span id="formulaDisplayVar">[0]</span> per Tick</p>
-    </div>
-    <br><br>
-    <div class="upgradeButtonsContainer">
-        <div class="operationUpgradeButtonsContainer">
-            <button id="upgradeButton1" class="upgradeButton">increase addition by <span id="upgradeStep1">[0]</span><br>Cost: <span id="upgradeCost1">[0]</span> money<br>Currently: <span id="upgradePower1">[0]</span></button>
-            <button id="upgradeButton2" class="upgradeButton">increase multiplication by <span id="upgradeStep2">[0]</span><br>Cost: <span id="upgradeCost2">[0]</span> money<br>Currently: <span id="upgradePower2">[0]</span></button>
-            <button id="upgradeButton3" class="upgradeButton">increase exponentiation by <span id="upgradeStep3">[0]</span><br>Cost: <span id="upgradeCost3">[0]</span> money<br>Currently: <span id="upgradePower3">[0]</span></button>
-            <button id="upgradeButton4" class="upgradeButton">increase tetration by <span id="upgradeStep4">[0]</span><br>Cost: <span id="upgradeCost4">[0]</span> money<br>Currently: <span id="upgradePower4">[0]</span></button>
+    <div class="sidenav">
+        <div class="homeButtonContainer" id="homeButton">
+            <p>Home</p>
         </div>
-        <br><br>
-        <div class="miscUpgradeButtonsContainer">
-            <button id="upgradeButton5" class="upgradeButton">Increase tickspeed by <span id="upgradeStep5">[0]</span><br>Cost: <span id="upgradeCost5">[0]</span> money<br>Currently: <span id="upgradePower5">[0]</span></button>
+        <div class="settingsButtonContainer" id="settingsButton">
+            <p>Settings</p>
+        </div>
+    </div>
+
+    <div class="homePage" id="homePage">
+        <div id="displaysContainer">
+            <h1 id="moneyDisplay">You have <span id="moneyDisplayVar">[0]</span> money</h1>
+            <p id="mpsDisplay">money/s: <span id="mpsDisplayVar">[0]</span></p>
+            <p id="tickspeedDisplay">Tickspeed: <span id="tickspeedDisplayVar">[0]</span> ticks/s</p>
+            <p id="formulaDisplay">Formula: <span id="formulaDisplayVar">[0]</span> per Tick</p>
+        </div>
+        <div class="upgradeButtonsContainer">
+            <div class="operationUpgradeButtonsContainer">
+                <p>Operations</p>
+                <button id="upgradeButton1" class="upgradeButton">increase addition by <span id="upgradeStep1">[0]</span><br>Cost: <span id="upgradeCost1">[0]</span> money<br>Currently: <span id="upgradePower1">[0]</span></button>
+                <button id="upgradeButton2" class="upgradeButton">increase multiplication by <span id="upgradeStep2">[0]</span><br>Cost: <span id="upgradeCost2">[0]</span> money<br>Currently: <span id="upgradePower2">[0]</span></button>
+                <button id="upgradeButton3" class="upgradeButton">increase exponentiation by <span id="upgradeStep3">[0]</span><br>Cost: <span id="upgradeCost3">[0]</span> money<br>Currently: <span id="upgradePower3">[0]</span></button>
+                <button id="upgradeButton4" class="upgradeButton">increase tetration by <span id="upgradeStep4">[0]</span><br>Cost: <span id="upgradeCost4">[0]</span> money<br>Currently: <span id="upgradePower4">[0]</span></button>
+            </div>
+            <br><br>
+            <div class="miscUpgradeButtonsContainer">
+                <button id="upgradeButton5" class="upgradeButton">Increase tickspeed by <span id="upgradeStep5">[0]</span><br>Cost: <span id="upgradeCost5">[0]</span> money<br>Currently: <span id="upgradePower5">[0]</span></button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="settingsPage" id="settingsPage">
+        <h1 class="settingsHeader">Settings</h1>
+        <div class="settingsInterface">
+            <div class="settingsColumn">
+                <div class="settingsObject">
+                    <p class="settingsObjectDescription">Frames Per Second</p>
+                    <input type="range" min="4" max="60" value="24" class="slider" id="framerateSlider">
+                    <p class="settingsObjectCurrentValue">Currently: <span id="currentFramerate">[0]</span></p>
+                </div>
+            </div>
         </div>
     </div>
 </body>
