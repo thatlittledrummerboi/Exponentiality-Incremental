@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Epilogue
+- Font Author: Copyright 2020 The Epilogue Project Authors (https://github.com/Etcetera-Type-Co/Epilogue)
+- Font Source: https://fonts.gstatic.com/s/epilogue/v17/O4ZMFGj5hxF0EhjimngomvnCCtqb30OXAjPiDJXVigHPVA.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
