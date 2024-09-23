@@ -6,6 +6,9 @@ function biNotation(vala, expa, decpointa, notation) {
     let valstring = val.toString()
 
     if (val.lt(1000)) {
+        if (val.equals(0)) {
+            return("0");
+        }
         return(val.toFixed(decpoint));
     }
 

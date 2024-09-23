@@ -10,7 +10,7 @@ var game = {
 }
 
 var player = {
-    money: new Decimal(100000),
+    money: new Decimal(10),
     tickspeed: new Decimal(1),
     formula: "",
     mpt: new Decimal(0),
@@ -21,11 +21,11 @@ var player = {
         ],
         upgradeBaseCost: [
             10, 50, 100, 250, // OPERATIONS
-            1,          // TICKSPEED
+            1000,          // TICKSPEED
         ],
         upgradeCostMult: [
             0.3, 0.5, 0.75, 1, // OPERATIONS
-            10,          // TICKSPEED
+            9,          // TICKSPEED
         ],
         upgradeStep: [
             1, 0.1, 0.02, 0.005,  // OPERATIONS
@@ -48,7 +48,7 @@ function drawValues() {
     // Display Vars
     document.getElementById('moneyDisplayVar').innerHTML = notationengine.biNotation(player.money, notationengine.floorLog10(player.money), 2);
     document.getElementById('moneyDisplayVarCorner').innerHTML = notationengine.biNotation(player.money, notationengine.floorLog10(player.money), 2);
-    document.getElementById('mpsDisplayVar').innerHTML = notationengine.biNotation(player.mpt.mul(player.tickspeed)), notationengine.floorLog10( player.mpt * player.tickspeed, 2);
+    document.getElementById('mpsDisplayVar').innerHTML = notationengine.biNotation(player.mpt.mul(player.tickspeed), notationengine.floorLog10( player.mpt * player.tickspeed), 3);
     document.getElementById('tickspeedDisplayVar').innerHTML = notationengine.biNotation(player.tickspeed, notationengine.floorLog10(player.tickspeed), 3);
     document.getElementById('formulaDisplayVar').innerHTML = player.formula;
 
@@ -78,7 +78,7 @@ function updateValues() {
     player.money = player.money.plus(player.mpt.mul(player.tickspeed).div(player.settings.framerate));
     player.mpt = addition.mul(multiplication.pow(exponentiation.pow(tetration)));
     player.tickspeed = 1 + player.upgrades.upgradeLevel[4] * player.upgrades.upgradeStep[4];
-    player.formula = "((" + addition + " * " + multiplication + ") ^ " + exponentiation + ") ^ " + tetration;
+    player.formula = "((" + notationengine.biNotation(addition, notationengine.floorLog10(addition), 2) + " * " + notationengine.biNotation(multiplication, notationengine.floorLog10(multiplication), 2) + ") ^ " + notationengine.biNotation(exponentiation, notationengine.floorLog10(exponentiation), 2) + ") ^ " + notationengine.biNotation(tetration, notationengine.floorLog10(tetration), 3);
 
     // Settings Vars
     player.settings.framerate = document.getElementById('framerateSlider').value;
@@ -112,11 +112,19 @@ function showPage(id) {
             game.currentPage = 0;
             document.getElementById('homePage').style = "display: block;"
             document.getElementById('settingsPage').style = "display: none;"
+            document.getElementById('researchPage').style = "display: none;"
             break;
         case 1:
             game.currentPage = 1;
             document.getElementById('homePage').style = "display: none;"
             document.getElementById('settingsPage').style = "display: block;"
+            document.getElementById('researchPage').style = "display: none;"
+            break;
+        case 2:
+            game.currentPage = 1;
+            document.getElementById('homePage').style = "display: none;"
+            document.getElementById('settingsPage').style = "display: none;"
+            document.getElementById('researchPage').style = "display: block;"
             break;
     }
 }
@@ -132,6 +140,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('homeButton').addEventListener("click", (event) => {showPage(0)});            //     MENU BUTTONS
     document.getElementById('settingsButton').addEventListener("click", (event) => {showPage(1)});        //
+    document.getElementById('researchButton').addEventListener("click", (event) => {showPage(2)});        //
 
     showPage(game.currentPage);
 

@@ -10,14 +10,18 @@
     <title>Exponentiality</title>
 </head>
 <body>
-    <div class="moneyDisplayNavbarContainer">
+    <p style="text-align: center;"><em><marquee behavior="" direction="">This game is still in beta. any unbalanced vars or game mechanics are a result of me not caring enough to make them better. anyways, how was your day? i'm pretty lonely lol i need friends.. does anybody wanna be friends with me :3 no? alright then... :c</marquee></em></p>
+    <div style="display: none;" class="moneyDisplayNavbarContainer">
         <p id="moneyDisplay"><span id="moneyDisplayVarCorner">[0]</span><br> money</h1>
     </div>
     <div class="sidenav">
-        <div class="homeButtonContainer" id="homeButton">
+        <div class="homeButtonContainer" id="homeButton" style="display: none;">
             <p>Home</p>
         </div>
-        <div class="settingsButtonContainer" id="settingsButton">
+        <div class="researchButtonContainer" id="researchButton" style="display: none;">
+            <p>Research</p>
+        </div>
+        <div class="settingsButtonContainer" id="settingsButton" style="display: none;">
             <p>Settings</p>
         </div>
     </div>
@@ -41,6 +45,12 @@
             <div class="miscUpgradeButtonsContainer">
                 <button id="upgradeButton5" class="upgradeButton">Increase tickspeed by <span id="upgradeStep5">[0]</span><br>Cost: <span id="upgradeCost5">[0]</span> money<br>Currently: <span id="upgradePower5">[0]</span></button>
             </div>
+        </div>
+    </div>
+
+    <div class="researchPage" id="researchPage">
+        <div class="researchPageButtons">
+            <button id="researchNormalButton">Normal</button><button id="researchEpicButton">Epic</button>
         </div>
     </div>
     
