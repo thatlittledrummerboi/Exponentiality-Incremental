@@ -10,12 +10,13 @@
     <title>Exponentiality</title>
 </head>
 <body>
-    <p style="text-align: center;"><em><marquee behavior="" direction="">This game is still in beta. any unbalanced vars or game mechanics are a result of me not caring enough to make them better. anyways, how was your day? i'm pretty lonely lol i need friends.. does anybody wanna be friends with me :3 no? alright then... :c</marquee></em></p>
-    <div style="display: none;" class="moneyDisplayNavbarContainer">
+    <p style="text-align: center; border: 1px solid white; margin: 0; top: 0; border-top: none;border-right: none;" ><em><marquee behavior="" direction="">This game is still in beta. any unbalanced vars or game mechanics are a result of me not caring enough to make them better. anyways, how was your day? i'm pretty lonely lol i need friends.. does anybody wanna be friends with me :3 no? alright then... :c</marquee></em></p>
+    <br> 
+    <div class="moneyDisplayNavbarContainer">
         <p id="moneyDisplay"><span id="moneyDisplayVarCorner">[0]</span><br> money</h1>
     </div>
     <div class="sidenav">
-        <div class="homeButtonContainer" id="homeButton" style="display: none;">
+        <div class="homeButtonContainer" id="homeButton">
             <p>Home</p>
         </div>
         <div class="researchButtonContainer" id="researchButton" style="display: none;">
@@ -24,8 +25,10 @@
         <div class="settingsButtonContainer" id="settingsButton" style="display: none;">
             <p>Settings</p>
         </div>
+        <div class="aboutButtonContainer" id="aboutButton">
+            <p>About</p>
+        </div>
     </div>
-
     <div class="homePage" id="homePage">
         <div id="displaysContainer">
             <h1 id="moneyDisplay">You have <span id="moneyDisplayVar">[0]</span> money</h1>
@@ -33,17 +36,23 @@
             <p id="tickspeedDisplay">Tickspeed: <span id="tickspeedDisplayVar">[0]</span> ticks/s</p>
             <p id="formulaDisplay">Formula: <span id="formulaDisplayVar">[0]</span> per Tick</p>
         </div>
+        <div class="tickspeedUpgradeButtonContainer">
+            <button id="upgradeButton5" class="tickspeedUpgradeButton">*<span id="upgradeStep5">[0]</span> Tick Speed; Cost: <span id="upgradeCost5">[0]</span></button>
+        </div>
         <div class="upgradeButtonsContainer">
             <div class="operationUpgradeButtonsContainer">
                 <p>Operations</p>
-                <button id="upgradeButton1" class="upgradeButton">increase addition by <span id="upgradeStep1">[0]</span><br>Cost: <span id="upgradeCost1">[0]</span> money<br>Currently: <span id="upgradePower1">[0]</span></button>
-                <button id="upgradeButton2" class="upgradeButton">increase multiplication by <span id="upgradeStep2">[0]</span><br>Cost: <span id="upgradeCost2">[0]</span> money<br>Currently: <span id="upgradePower2">[0]</span></button>
-                <button id="upgradeButton3" class="upgradeButton">increase exponentiation by <span id="upgradeStep3">[0]</span><br>Cost: <span id="upgradeCost3">[0]</span> money<br>Currently: <span id="upgradePower3">[0]</span></button>
-                <button id="upgradeButton4" class="upgradeButton">increase tetration by <span id="upgradeStep4">[0]</span><br>Cost: <span id="upgradeCost4">[0]</span> money<br>Currently: <span id="upgradePower4">[0]</span></button>
+                <button id="upgradeButton1" class="upgradeButton">increase addition by <span id="upgradeStep1">[0]</span><br>Cost: <span id="upgradeCost1">[0]</span> money</button>
+                <button id="upgradeButton2" class="upgradeButton">increase multiplication by <span id="upgradeStep2">[0]</span><br>Cost: <span id="upgradeCost2">[0]</span> money<br></button>
+                <button id="upgradeButton3" class="upgradeButton">increase exponentiation by <span id="upgradeStep3">[0]</span><br>Cost: <span id="upgradeCost3">[0]</span> money<br></button>
+                <button id="upgradeButton4" class="upgradeButton">increase tetration by <span id="upgradeStep4">[0]</span><br>Cost: <span id="upgradeCost4">[0]</span> money<br></button>
             </div>
-            <br><br>
-            <div class="miscUpgradeButtonsContainer">
-                <button id="upgradeButton5" class="upgradeButton">Increase tickspeed by <span id="upgradeStep5">[0]</span><br>Cost: <span id="upgradeCost5">[0]</span> money<br>Currently: <span id="upgradePower5">[0]</span></button>
+            <div class="generatorUpgradeButtonsContainer">
+                <p>Generators</p>
+                <button id="upgradeButton6" class="upgradeButton">Increase addition generation by <span id="upgradeStep6">[0]</span><br>Cost: <span id="upgradeCost6">[0]</span> money </button>
+                <button id="upgradeButton7" class="upgradeButton">Increase multiplication generation by <span id="upgradeStep7">[0]</span><br>Cost: <span id="upgradeCost7">[0]</span> money</button>
+                <button id="upgradeButton8" class="upgradeButton">Increase exponentiation generation by <span id="upgradeStep8">[0]</span><br>Cost: <span id="upgradeCost8">[0]</span> money</button>
+                <button id="upgradeButton9" class="upgradeButton">Increase tetration generation by <span id="upgradeStep9">[0]</span><br>Cost: <span id="upgradeCost9">[0]</span> money</button>
             </div>
         </div>
     </div>
@@ -65,6 +74,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="aboutPage" id="aboutPage">
+        <h1 class="aboutHeader">About</h1>
+        <p class="aboutText" style="margin-left: 200px;">
+            Version 0.2.1-BETA <br>
+            Made by <a href="https://thatlittledrummerboi.github.io/">Little Drummer Boi</a><br>
+        </p>
     </div>
 </body>
 </html> 
