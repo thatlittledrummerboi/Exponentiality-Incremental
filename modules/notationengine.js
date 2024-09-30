@@ -1,9 +1,11 @@
-function biNotation(vala, expa, decpointa, notation) {
-    if (notation = null) { notation = 0; }
+function biNotation(vala, expa, decpointa, notationa) {
+    let notation;
+    if (notationa = null) { notation = 0; } else {notation = notationa};
     let val = new Decimal(vala);
     let exp = new Decimal(expa);
-    let decpoint = new Decimal(decpointa)
-    let valstring = val.toString()
+    let decpoint = new Decimal(decpointa);
+    let valstring = val.toNumber().toString();
+
 
     if (val.lt(1000)) {
         if (val.equals(0)) {
@@ -12,16 +14,17 @@ function biNotation(vala, expa, decpointa, notation) {
         return(val.toFixed(decpoint));
     }
 
-    if (notation = 0) {
-        if (val.lt(1_000_000_000_000_000_000_000_000_000_000_000)) { //1 decillion
+    //if (notation = 0) {
+        if (exp.lt(33)) { //1 decillion
             return(StandardNotation(valstring, exp));
+        } else {
+            return(SciNotation(valstring, exp));
         }
-        return(SciNotation(valstring, exp));
-    } else if (notation = 1) {
-        return(StandardNotation(valstring, exp));
-    } else if (notation = 2) {
-        return(SciNotation(valstring, exp));
-    }
+    //} else if (notation = 1) {
+    //    return(StandardNotation(valstring, exp));
+    //} else if (notation = 2) {
+    //    return(SciNotation(valstring, exp));
+    //}
 }
 
 function notation(val, decpoint, notation) {
@@ -56,16 +59,20 @@ function floorLog10(val) {
 function StandardNotation(valstring, exp) {
     let suffixes = ["", "K", "M", "B", "T", "Qa", "Qt", "Sx", "Sp", "Oc", "No", "Dc"];
 
+    let q;
+    if (exp < 18) { q = 0; } else { q = 1;}
+
+
     switch(exp % 3) {
         case 0:
-            return(valstring[0] + "." + valstring[1] + valstring[2] + valstring[3] + suffixes[Math.floor(exp/3)]);
+            return(valstring[0] + "." + valstring[1+q] + valstring[2+q] + valstring[3+q] + suffixes[Math.floor(exp/3)]);
         case 1:
-            return(valstring[0] + valstring[1] + "." + valstring[2] + valstring[3] + valstring[4] + suffixes[Math.floor(exp/3)]);
+            return(valstring[0] + valstring[1+q] + "." + valstring[2+q] + valstring[3+q] + valstring[4+q] + suffixes[Math.floor(exp/3)]);
         case 2:
-            return(valstring[0] + valstring[1] + valstring[2] + "." + valstring[3] + valstring[4] + valstring[5] + suffixes[Math.floor(exp/3)]);
+            return(valstring[0] + valstring[1+q] + valstring[2+q] + "." + valstring[3+q] + valstring[4+q] + valstring[5+q] + suffixes[Math.floor(exp/3)]);
     }
 }
 
-function SciNotation(valstring, exp) { return(valstring[0] + "." + valstring[1] + valstring[2] + valstring[3] + "e" + exp); }
+function SciNotation(valstring, exp) { return(valstring[0] + "." + valstring[2] + valstring[3] + valstring[4] + "e" + exp.toString()); }
 
 export {notation, biNotation, floorLog10}; 

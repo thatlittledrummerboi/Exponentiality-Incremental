@@ -159,3 +159,24 @@ body {
 .researchPageButtons {
     text-align: center;
 }
+
+/* ##### */
+/* ABOUT */
+/* ##### */
+
+.aboutHeader {
+    text-align: center;
+}
+
+.aboutText {
+    font-size: 14px;
+}
+
+.aboutText a {
+    text-decoration: none;
+    color: red;
+}
+
+.aboutText a:hover {
+    color: rgb(255, 72, 72);
+}

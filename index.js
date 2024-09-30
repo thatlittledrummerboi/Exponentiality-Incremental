@@ -10,7 +10,7 @@ var game = {
 }
 
 var player = {
-    money: new Decimal(1000),
+    money: new Decimal(10),
     tickspeed: new Decimal(1),
     base_tickspeed: new Decimal(1),
     formula: "",
@@ -34,7 +34,7 @@ var player = {
         upgradeStep: [
             1, 0.1, 0.02, 0.005,      // OPERATIONS
             0.125,                    // TICKSPEED
-            0.01, 0.001, 0.0005, 0.0001, // GENERATORS
+            0.01, 0.005, 0.001, 0.0005, // GENERATORS
         ],
         upgradeCurrentDecpoint: [
             2, 2, 2, 3,  //OPERATIONS
@@ -111,7 +111,7 @@ function updateValues() {
     // Display Vars
     player.money = player.money.plus(player.mpt.mul(player.tickspeed).div(player.settings.framerate));
     player.mpt = player.operationPresets[0].mul(player.operationPresets[1].pow(player.operationPresets[2].pow(player.operationPresets[3])));
-    player.tickspeed = 1 + player.upgrades.upgradeLevel[4] * player.upgrades.upgradeStep[4];
+    player.tickspeed = player.base_tickspeed.mul(1 + player.upgrades.upgradeStep[4]).pow(player.upgrades.upgradeLevel[4])
     player.formula = "((" + notationengine.biNotation(player.operationPresets[0], notationengine.floorLog10(player.operationPresets[0]), 2) + " * " + notationengine.biNotation(player.operationPresets[1], notationengine.floorLog10(player.operationPresets[1]), 2) + ") ^ " + notationengine.biNotation(player.operationPresets[2], notationengine.floorLog10(player.operationPresets[2]), 3) + ") ^ " + notationengine.biNotation(player.operationPresets[3], notationengine.floorLog10(player.operationPresets[3]), 3);
 
     // Settings Vars
@@ -147,18 +147,28 @@ function showPage(id) {
             document.getElementById('homePage').style = "display: block;"
             document.getElementById('settingsPage').style = "display: none;"
             document.getElementById('researchPage').style = "display: none;"
+            document.getElementById('aboutPage').style = "display: none"
             break;
         case 1:
             game.currentPage = 1;
             document.getElementById('homePage').style = "display: none;"
             document.getElementById('settingsPage').style = "display: block;"
             document.getElementById('researchPage').style = "display: none;"
+            document.getElementById('aboutPage').style = "display: none"
             break;
         case 2:
-            game.currentPage = 1;
+            game.currentPage = 2;
             document.getElementById('homePage').style = "display: none;"
             document.getElementById('settingsPage').style = "display: none;"
             document.getElementById('researchPage').style = "display: block;"
+            document.getElementById('aboutPage').style = "display: none"
+            break;
+        case 3:
+            game.currentPage = 3;
+            document.getElementById('homePage').style = "display: none;"
+            document.getElementById('settingsPage').style = "display: none;"
+            document.getElementById('researchPage').style = "display: none;"
+            document.getElementById('aboutPage').style = "display: block"
             break;
     }
 }
@@ -179,6 +189,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('homeButton').addEventListener("click", (event) => {showPage(0)});            //     MENU BUTTONS
     document.getElementById('settingsButton').addEventListener("click", (event) => {showPage(1)});        //
     document.getElementById('researchButton').addEventListener("click", (event) => {showPage(2)});        //
+    document.getElementById('aboutButton').addEventListener("click", (event) => {showPage(3)});           //
 
     showPage(game.currentPage);
 

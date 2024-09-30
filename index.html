@@ -11,6 +11,7 @@
 </head>
 <body>
     <p style="text-align: center; border: 1px solid white; margin: 0; top: 0; border-top: none;border-right: none;" ><em><marquee behavior="" direction="">This game is still in beta. any unbalanced vars or game mechanics are a result of me not caring enough to make them better. anyways, how was your day? i'm pretty lonely lol i need friends.. does anybody wanna be friends with me :3 no? alright then... :c</marquee></em></p>
+    <br> 
     <div class="moneyDisplayNavbarContainer">
         <p id="moneyDisplay"><span id="moneyDisplayVarCorner">[0]</span><br> money</h1>
     </div>
@@ -18,14 +19,16 @@
         <div class="homeButtonContainer" id="homeButton">
             <p>Home</p>
         </div>
-        <div class="researchButtonContainer" id="researchButton">
+        <div class="researchButtonContainer" id="researchButton" style="display: none;">
             <p>Research</p>
         </div>
-        <div class="settingsButtonContainer" id="settingsButton">
+        <div class="settingsButtonContainer" id="settingsButton" style="display: none;">
             <p>Settings</p>
         </div>
+        <div class="aboutButtonContainer" id="aboutButton">
+            <p>About</p>
+        </div>
     </div>
-
     <div class="homePage" id="homePage">
         <div id="displaysContainer">
             <h1 id="moneyDisplay">You have <span id="moneyDisplayVar">[0]</span> money</h1>
@@ -36,7 +39,6 @@
         <div class="tickspeedUpgradeButtonContainer">
             <button id="upgradeButton5" class="tickspeedUpgradeButton">*<span id="upgradeStep5">[0]</span> Tick Speed; Cost: <span id="upgradeCost5">[0]</span></button>
         </div>
-        <br>
         <div class="upgradeButtonsContainer">
             <div class="operationUpgradeButtonsContainer">
                 <p>Operations</p>
@@ -72,6 +74,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="aboutPage" id="aboutPage">
+        <h1 class="aboutHeader">About</h1>
+        <p class="aboutText" style="margin-left: 200px;">
+            Version 0.2.1-BETA <br>
+            Made by <a href="https://thatlittledrummerboi.github.io/">Little Drummer Boi</a><br>
+        </p>
     </div>
 </body>
 </html> 
