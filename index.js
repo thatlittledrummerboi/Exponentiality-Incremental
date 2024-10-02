@@ -1,4 +1,5 @@
 import Decimal from "./modules/breakinfinity.js";
+import * as cookie from "./modules/cookie.js";
 import * as notationengine from "./modules/notationengine.js";
 
 const ts = new Date();
@@ -59,7 +60,8 @@ var player = {
         new Decimal(0),
         new Decimal(0),
         new Decimal(0),
-    ]
+    ],
+    ignoreTimestampFromSave: false,
 }
 
 function drawValues() {
@@ -117,6 +119,8 @@ function updateValues() {
     // Settings Vars
     player.settings.framerate = document.getElementById('framerateSlider').value;
     
+    // Miscellaneous
+    game.currentTimestamp = ts.getTime();
 }
 
 function frame() {
@@ -190,6 +194,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('settingsButton').addEventListener("click", (event) => {showPage(1)});        //
     document.getElementById('researchButton').addEventListener("click", (event) => {showPage(2)});        //
     document.getElementById('aboutButton').addEventListener("click", (event) => {showPage(3)});           //
+    document.getElementById('saveButton').addEventListener("click", (event) => {save()});
+    document.getElementById('loadButton').addEventListener("click", (event) => {load("save")})
 
     showPage(game.currentPage);
 
