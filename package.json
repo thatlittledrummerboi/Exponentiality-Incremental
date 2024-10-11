@@ -1,1 +1,1 @@
-{"type": "module"} 
+{"type":"module","dependencies":{"crypto-js":"^4.2.0"}}

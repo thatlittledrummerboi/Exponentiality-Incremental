@@ -8,14 +8,15 @@ var game = {
     checkedForSave: false,
     currentTimestamp: 0,
     currentPage: 0,
+    version: "0.2.1-BETA",
+    formula: "",
+    mpt: new Decimal(0),
 }
 
 var player = {
     money: new Decimal(10),
     tickspeed: new Decimal(1),
     base_tickspeed: new Decimal(1),
-    formula: "",
-    mpt: new Decimal(0),
     upgrades: {
         upgradeLevel: [
             0, 0, 0, 0, // OPERATIONS
@@ -62,15 +63,16 @@ var player = {
         new Decimal(0),
     ],
     ignoreTimestampFromSave: false,
+    versionSinceLastSave: "",
 }
 
 function drawValues() {
     // Display Vars
-    document.getElementById('moneyDisplayVar').innerHTML = notationengine.biNotation(player.money, notationengine.floorLog10(player.money), 2);
+    document.getElementById('moneyDisplayVar').innerHTML = notationengine.biNotation(player.money, notationengine.floorLog10(player.money), 2, 0);
     document.getElementById('moneyDisplayVarCorner').innerHTML = notationengine.biNotation(player.money, notationengine.floorLog10(player.money), 2);
-    document.getElementById('mpsDisplayVar').innerHTML = notationengine.biNotation(player.mpt.mul(player.tickspeed), notationengine.floorLog10( player.mpt * player.tickspeed), 3);
+    document.getElementById('mpsDisplayVar').innerHTML = notationengine.biNotation(game.mpt.mul(player.tickspeed), notationengine.floorLog10( game.mpt * player.tickspeed), 3);
     document.getElementById('tickspeedDisplayVar').innerHTML = notationengine.biNotation(player.tickspeed, notationengine.floorLog10(player.tickspeed), 3);
-    document.getElementById('formulaDisplayVar').innerHTML = player.formula;
+    document.getElementById('formulaDisplayVar').innerHTML = game.formula;
 
     // Upgrade Vars
     let i = 0;
@@ -95,6 +97,9 @@ function drawValues() {
         }
         j++;
     }
+
+    // Miscellaneous
+    document.getElementById('versionDisplayVar').innerHTML = game.version;
 }
 
 function updateValues() {
@@ -111,10 +116,10 @@ function updateValues() {
     player.operationPresets[3] = (player.generators.tetration.plus(1 + player.upgrades.upgradeLevel[3] * player.upgrades.upgradeStep[3]));
 
     // Display Vars
-    player.money = player.money.plus(player.mpt.mul(player.tickspeed).div(player.settings.framerate));
-    player.mpt = player.operationPresets[0].mul(player.operationPresets[1].pow(player.operationPresets[2].pow(player.operationPresets[3])));
+    player.money = player.money.plus(game.mpt.mul(player.tickspeed).div(player.settings.framerate));
+    game.mpt = player.operationPresets[0].mul(player.operationPresets[1].pow(player.operationPresets[2].pow(player.operationPresets[3])));
     player.tickspeed = player.base_tickspeed.mul(1 + player.upgrades.upgradeStep[4]).pow(player.upgrades.upgradeLevel[4])
-    player.formula = "((" + notationengine.biNotation(player.operationPresets[0], notationengine.floorLog10(player.operationPresets[0]), 2) + " * " + notationengine.biNotation(player.operationPresets[1], notationengine.floorLog10(player.operationPresets[1]), 2) + ") ^ " + notationengine.biNotation(player.operationPresets[2], notationengine.floorLog10(player.operationPresets[2]), 3) + ") ^ " + notationengine.biNotation(player.operationPresets[3], notationengine.floorLog10(player.operationPresets[3]), 3);
+    game.formula = "((" + notationengine.biNotation(player.operationPresets[0], notationengine.floorLog10(player.operationPresets[0]), 2) + " * " + notationengine.biNotation(player.operationPresets[1], notationengine.floorLog10(player.operationPresets[1]), 2) + ") ^ " + notationengine.biNotation(player.operationPresets[2], notationengine.floorLog10(player.operationPresets[2]), 3) + ") ^ " + notationengine.biNotation(player.operationPresets[3], notationengine.floorLog10(player.operationPresets[3]), 3);
 
     // Settings Vars
     player.settings.framerate = document.getElementById('framerateSlider').value;
@@ -144,37 +149,46 @@ function attemptPurchase(id) {
     } 
 }
 
-function showPage(id) {
-    switch(id) {
-        case 0:
-            game.currentPage = 0;
-            document.getElementById('homePage').style = "display: block;"
-            document.getElementById('settingsPage').style = "display: none;"
-            document.getElementById('researchPage').style = "display: none;"
-            document.getElementById('aboutPage').style = "display: none"
-            break;
-        case 1:
-            game.currentPage = 1;
-            document.getElementById('homePage').style = "display: none;"
-            document.getElementById('settingsPage').style = "display: block;"
-            document.getElementById('researchPage').style = "display: none;"
-            document.getElementById('aboutPage').style = "display: none"
-            break;
-        case 2:
-            game.currentPage = 2;
-            document.getElementById('homePage').style = "display: none;"
-            document.getElementById('settingsPage').style = "display: none;"
-            document.getElementById('researchPage').style = "display: block;"
-            document.getElementById('aboutPage').style = "display: none"
-            break;
-        case 3:
-            game.currentPage = 3;
-            document.getElementById('homePage').style = "display: none;"
-            document.getElementById('settingsPage').style = "display: none;"
-            document.getElementById('researchPage').style = "display: none;"
-            document.getElementById('aboutPage').style = "display: block"
-            break;
+function save(destination) {
+    player.versionSinceLastSave = game.version;
+    // DESTINATIONS: 0 = cookie, 1 = download
+
+    if (destination == 0) {
+        //idk do some shit
+    } else if (destination == 1) {
+        const payload = JSON.stringify(CryptoJS.Base64(player))
+        const a = document.createElement('a');
+        a.download = "save_" + game.currentTimestamp + ".json";
+        a.href = `data:application/payload,${window.encodeURIComponent(payload)}`;
+        a.click();
+        a.remove();
     }
+}
+
+function load() {
+
+}
+
+function versionLookup(ver) {
+    var versions = {
+        "default": 0,
+        "0.1-BETA": 1,
+        "0.2-BETA": 2,
+        "0.2.1-BETA": 3,
+    };
+    return(versions[ver] || versions["default"])
+}
+
+
+function showPage(id) {
+    var pages = ["homePage", "settingsPage", "researchPage", "aboutPage"];
+
+    document.getElementById('homePage').style = "display: none";
+    document.getElementById('settingsPage').style = "display: none";
+    document.getElementById('researchPage').style = "display: none";
+    document.getElementById('aboutPage').style = "display: none";
+
+    document.getElementById(pages[id]).style = "display: block";
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -194,7 +208,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('settingsButton').addEventListener("click", (event) => {showPage(1)});        //
     document.getElementById('researchButton').addEventListener("click", (event) => {showPage(2)});        //
     document.getElementById('aboutButton').addEventListener("click", (event) => {showPage(3)});           //
-    document.getElementById('saveButton').addEventListener("click", (event) => {save()});
+    document.getElementById('saveButton').addEventListener("click", (event) => {save(1)});
     document.getElementById('loadButton').addEventListener("click", (event) => {load("save")})
 
     showPage(game.currentPage);

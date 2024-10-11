@@ -12,3 +12,10 @@
     * Changed tickspeed upgrade from +0.125 to *0.125
 * Added Generator Upgrades
 * Added About Page
+
+## Version Draft:
+* Fixed notation bugs:
+    * notation param always equals 1
+    * Issue with Scientific notation
+* Rewrote showPage() function for higher efficiency
+* Changed Location of player.formula and player.mpt --> game.formula and game.mpt

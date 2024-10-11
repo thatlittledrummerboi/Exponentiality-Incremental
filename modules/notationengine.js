@@ -1,30 +1,29 @@
 function biNotation(vala, expa, decpointa, notationa) {
-    let notation;
-    if (notationa = null) { notation = 0; } else {notation = notationa};
+    let notation = notationa ?? 0;
     let val = new Decimal(vala);
     let exp = new Decimal(expa);
     let decpoint = new Decimal(decpointa);
-    let valstring = val.toNumber().toString();
+    let valstring = val.toFixed(decpoint);
 
 
     if (val.lt(1000)) {
         if (val.equals(0)) {
             return("0");
         }
-        return(val.toFixed(decpoint));
+        return(valstring);
     }
 
-    //if (notation = 0) {
+    if (notation == 0) {
         if (exp.lt(33)) { //1 decillion
             return(StandardNotation(valstring, exp));
         } else {
             return(SciNotation(valstring, exp));
         }
-    //} else if (notation = 1) {
-    //    return(StandardNotation(valstring, exp));
-    //} else if (notation = 2) {
-    //    return(SciNotation(valstring, exp));
-    //}
+    } else if (notation == 1) {
+        return(StandardNotation(valstring, exp));
+    } else if (notation == 2) {
+        return(SciNotation(valstring, exp));
+    }
 }
 
 function notation(val, decpoint, notation) {
@@ -37,14 +36,14 @@ function notation(val, decpoint, notation) {
         return(valstring.toFixed(decpoint));
     }
     
-    if (notation = 0) {
+    if (notation == 0) {
         if (val < 1_000_000_000_000_000_000_000_000_000_000_000) { //1 decillion
             return(StandardNotation(valstring, exp));
         }
         return(SciNotation(valstring, exp));
-    } else if (notation = 1) {
+    } else if (notation == 1) {
         return(StandardNotation(valstring, exp));
-    } else if (notation = 2) {
+    } else if (notation == 2) {
         return(SciNotation(valstring, exp));
     }
 }
